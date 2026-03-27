@@ -2,9 +2,11 @@
 
 ![CI](https://github.com/JoaoCesarDev22/MedAlert-CLI/actions/workflows/ci.yml/badge.svg)
 
+---
+
 ## 📌 Descrição
 
-O **MedAlert CLI** é uma aplicação simples em linha de comando desenvolvida para auxiliar no controle de medicamentos e horários de uso, especialmente voltada para pessoas que possuem dificuldade em manter uma rotina de medicação organizada, como idosos ou pacientes com tratamentos contínuos.
+O **MedAlert CLI** é uma aplicação em linha de comando desenvolvida para auxiliar no controle de medicamentos e horários de uso, especialmente voltada para pessoas que possuem dificuldade em manter uma rotina de medicação organizada, como idosos ou pacientes em tratamento contínuo.
 
 A aplicação permite registrar medicamentos, acompanhar horários e marcar doses como tomadas, contribuindo para a redução de esquecimentos e erros no uso de medicamentos.
 
@@ -15,7 +17,7 @@ A aplicação permite registrar medicamentos, acompanhar horários e marcar dose
 Muitas pessoas enfrentam dificuldades em gerenciar corretamente seus medicamentos, o que pode levar a:
 
 * esquecimentos de doses;
-* uso incorreto de horários;
+* uso incorreto dos horários;
 * riscos à saúde por má administração.
 
 Esse problema é especialmente crítico para:
@@ -28,7 +30,7 @@ Esse problema é especialmente crítico para:
 
 ## 💡 Solução Proposta
 
-O MedAlert CLI oferece uma solução simples e acessível:
+O **MedAlert CLI** oferece uma solução simples e acessível:
 
 * registro de medicamentos com nome, dosagem e horário;
 * listagem organizada dos medicamentos;
@@ -61,7 +63,7 @@ O MedAlert CLI oferece uma solução simples e acessível:
 
 * Python 3.14
 * Pytest (testes automatizados)
-* Ruff (linting/análise estática)
+* Ruff (linting / análise estática)
 * Git & GitHub
 * GitHub Actions (CI/CD)
 
@@ -98,16 +100,29 @@ git clone https://github.com/JoaoCesarDev22/MedAlert-CLI.git
 cd MedAlert-CLI
 ```
 
+---
+
 ### 2. Instalar dependências
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
+---
+
 ### 3. Executar a aplicação
 
+#### 🔹 Linux / Mac
+
 ```bash
-python src/medalert/app.py
+PYTHONPATH=src python -m medalert.app
+```
+
+#### 🔹 Windows (PowerShell)
+
+```powershell
+$env:PYTHONPATH="src"
+python -m medalert.app
 ```
 
 ---
@@ -140,8 +155,6 @@ O projeto utiliza **GitHub Actions** para:
 * rodar lint;
 * executar testes automaticamente a cada push.
 
-Status atual:
-
 ✔ Build automatizado ativo
 ✔ Testes validados automaticamente
 
@@ -166,11 +179,18 @@ Versão atual:
 ## 📸 Exemplo de Uso
 
 ```
-1. Adicionar medicamento
-2. Listar medicamentos
-3. Marcar como tomado
-4. Remover medicamento
-5. Sair
+=== MedAlert CLI ===
+1 - Adicionar medicamento
+2 - Listar medicamentos
+3 - Marcar como tomado
+4 - Remover medicamento
+0 - Sair
+
+Escolha uma opção: 1
+Nome do medicamento: Dipirona
+Dosagem: 500mg
+Horário: 08:00
+Medicamento adicionado com sucesso!
 ```
 
 ---
@@ -179,8 +199,7 @@ Versão atual:
 
 **João César**
 
-GitHub:
-https://github.com/JoaoCesarDev22
+GitHub: https://github.com/JoaoCesarDev22
 
 ---
 
