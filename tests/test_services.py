@@ -1,4 +1,3 @@
-import pytest
 from medalert.models import Medication
 from medalert.services import add_medication, validate_time_format, mark_as_taken
 
