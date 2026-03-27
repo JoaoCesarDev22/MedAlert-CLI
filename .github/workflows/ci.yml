@@ -19,7 +19,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install ruff pytest
 
       - name: Run lint (ruff)
         run: |
@@ -27,4 +29,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          pytest -v
