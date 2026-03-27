@@ -4,6 +4,7 @@ from medalert.storage import save_data, load_data, DATA_FILE
 
 
 def test_save_and_load_data(tmp_path, monkeypatch):
+    # muda o diretório para não afetar arquivos reais
     monkeypatch.chdir(tmp_path)
 
     meds = [
@@ -13,10 +14,18 @@ def test_save_and_load_data(tmp_path, monkeypatch):
 
     save_data(meds)
 
+    # garante que o arquivo foi criado no ambiente de teste
     assert os.path.exists(DATA_FILE)
 
     loaded = load_data()
 
     assert len(loaded) == 2
     assert loaded[0].name == "Paracetamol"
+    assert loaded[0].dosage == "500mg"
+    assert loaded[0].time == "10:00"
+    assert loaded[0].taken is False
+
+    assert loaded[1].name == "Omeprazol"
+    assert loaded[1].dosage == "20mg"
+    assert loaded[1].time == "07:00"
     assert loaded[1].taken is True

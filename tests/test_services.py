@@ -23,6 +23,6 @@ def test_add_medication_adds_correctly():
 
 def test_mark_as_taken_changes_status():
     meds = [Medication(name="Vitamina C", dosage="1 comprimido", time="09:00")]
-    mark_as_taken(meds, 1)
+    mark_as_taken(meds, 0)
 
     assert meds[0].taken is True
