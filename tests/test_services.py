@@ -15,14 +15,21 @@ def test_add_medication_adds_correctly():
     add_medication(meds, "Dipirona", "1 comprimido", "08:00")
 
     assert len(meds) == 1
-    assert meds[0].name == "Dipirona"
-    assert meds[0].dosage == "1 comprimido"
-    assert meds[0].time == "08:00"
-    assert meds[0].taken is False
+
+    med = meds[0]
+    assert med.name == "Dipirona"
+    assert med.dosage == "1 comprimido"
+    assert med.time == "08:00"
+    assert med.taken is False
 
 
 def test_mark_as_taken_changes_status():
+    # cria lista com um item
     meds = [Medication(name="Vitamina C", dosage="1 comprimido", time="09:00")]
-    mark_as_taken(meds, 0)
 
-    assert meds[0].taken is True
+    # usa sempre o índice baseado no tamanho real da lista (evita erro humano)
+    index = len(meds) - 1
+
+    mark_as_taken(meds, index)
+
+    assert meds[index].taken is True

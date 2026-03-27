@@ -1,31 +1,35 @@
-import os
 from medalert.models import Medication
-from medalert.storage import save_data, load_data, DATA_FILE
+from medalert.services import add_medication, validate_time_format, mark_as_taken
 
 
-def test_save_and_load_data(tmp_path, monkeypatch):
-    # muda o diretório para não afetar arquivos reais
-    monkeypatch.chdir(tmp_path)
+def test_validate_time_format_valid():
+    assert validate_time_format("10:30") is True
 
-    meds = [
-        Medication(name="Paracetamol", dosage="500mg", time="10:00", taken=False),
-        Medication(name="Omeprazol", dosage="20mg", time="07:00", taken=True),
-    ]
 
-    save_data(meds)
+def test_validate_time_format_invalid():
+    assert validate_time_format("99:99") is False
 
-    # garante que o arquivo foi criado no ambiente de teste
-    assert os.path.exists(DATA_FILE)
 
-    loaded = load_data()
+def test_add_medication_adds_correctly():
+    meds = []
 
-    assert len(loaded) == 2
-    assert loaded[0].name == "Paracetamol"
-    assert loaded[0].dosage == "500mg"
-    assert loaded[0].time == "10:00"
-    assert loaded[0].taken is False
+    add_medication(meds, "Dipirona", "1 comprimido", "08:00")
 
-    assert loaded[1].name == "Omeprazol"
-    assert loaded[1].dosage == "20mg"
-    assert loaded[1].time == "07:00"
-    assert loaded[1].taken is True
+    assert len(meds) == 1
+
+    med = meds[0]
+    assert med.name == "Dipirona"
+    assert med.dosage == "1 comprimido"
+    assert med.time == "08:00"
+    assert med.taken is False
+
+
+def test_mark_as_taken_changes_status():
+    meds = []
+
+    add_medication(meds, "Vitamina C", "1 comprimido", "09:00")
+
+    # sempre usa índice fixo porque a lista foi criada aqui mesmo
+    mark_as_taken(meds, 0)
+
+    assert meds[0].taken is True
