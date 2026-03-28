@@ -1,4 +1,3 @@
-import os
 from medalert.services import add_medication, validate_time_format, mark_as_taken
 
 
