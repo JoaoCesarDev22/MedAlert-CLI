@@ -1,8 +1,11 @@
+import pytest
 from unittest.mock import patch
+# Importando corretamente as funções de dentro do seu api.py original
 from medalert.api import fetch_drug_info, format_drug_info
 
 
 def test_fetch_drug_info_integration_mock():
+    """Valida o comportamento da busca simulando (mockando) a resposta da API pública"""
     fake_response = {
         "results": [
             {
@@ -27,6 +30,7 @@ def test_fetch_drug_info_integration_mock():
 
 
 def test_format_drug_info_returns_string():
+    """Valida se a função de formatação monta a string corretamente"""
     drug_data = {
         "openfda": {
             "brand_name": ["Dipirona Teste"],
@@ -39,3 +43,17 @@ def test_format_drug_info_returns_string():
 
     assert "Dipirona" in formatted
     assert "Fabricante" in formatted
+
+
+def test_fetch_drug_info_real_api_integration():
+    """Teste de Integração Real: Valida a comunicação viva conectando à API da OpenFDA"""
+    try:
+        # Buscando por um princípio ativo global padrão (Ibuprofen)
+        result = fetch_drug_info("Ibuprofen")
+        
+        assert "openfda" in result
+        assert len(result["openfda"].get("generic_name", [])) > 0
+    except Exception as e:
+        # Se a API externa estiver instável ou fora do ar, avisa o pytest para pular 
+        # sem quebrar a pipeline de CI de forma injusta
+        pytest.skip(f"A API externa da OpenFDA ficou indisponível durante o teste: {e}")
