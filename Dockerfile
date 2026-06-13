@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 10000
 
-CMD ["python", "src/medalert/server.py"]
+ENV PYTHONPATH=/app/src
+
+CMD ["python", "-m", "medalert.server"]
